@@ -8,14 +8,36 @@
 </head>
 <body>
   <div class="chat-container">
-    <div class="chat-box">
-      <div class="mensagem recebida">blablabla blabla</div>
-      <div class="mensagem enviada">bloblobblab blob</div>
-      <div class="mensagem recebida">blablabla blabla</div>
-      <div class="mensagem enviada">bloblobblab blob</div>
+    <div class="chat-box" id="chat-box">
+      <!-- Mensagens serão inseridas aqui via JavaScript -->
     </div>
-    <input type="text" class="chat-input" placeholder="Digite sua mensagem...">
-    <button class="send-button">Enviar</button>
+    <input type="text" class="chat-input" id="user-input" placeholder="Digite sua mensagem...">
+    <button class="send-button" onclick="enviarMensagem()">Enviar</button>
   </div>
+
+  <script>
+    function enviarMensagem() {
+      var userInput = document.getElementById("user-input");
+      var mensagem = userInput.value.trim();
+
+      if (mensagem !== "") {
+        adicionarMensagem("enviada", mensagem);
+        userInput.value = ""; // Limpa o campo de entrada
+        // Simular resposta do chat
+        setTimeout(function() {
+          adicionarMensagem("recebida", "Resposta do chat...");
+        }, 1000);
+      }
+    }
+
+    function adicionarMensagem(tipo, texto) {
+      var chatBox = document.getElementById("chat-box");
+      var mensagemElement = document.createElement("div");
+      mensagemElement.classList.add("mensagem", tipo);
+      mensagemElement.textContent = texto;
+      chatBox.appendChild(mensagemElement);
+      chatBox.scrollTop = chatBox.scrollHeight; // Rolagem automática para a última mensagem
+    }
+  </script>
 </body>
 </html>
